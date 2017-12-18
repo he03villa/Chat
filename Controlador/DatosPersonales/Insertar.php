@@ -4,5 +4,5 @@
     $DatosP = new Datos_Personales();
     $res1 = $DatosP->Insertar($datos["id"], $datos["nombre"],$datos["apellido"], $datos["fechanacimiento"],$datos["correo"], $datos["telefono"],$datos["genero"]);
     $res2 = $DatosP->InsertarUsu($datos["id"], $datos["pass"]);
-    echo $res1.' '.$res2;
+    echo json_encode(array('resultado' => $res1));
 ?>
