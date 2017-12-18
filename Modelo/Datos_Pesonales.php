@@ -27,6 +27,23 @@
             }
         }
         
+        public function InsertarUsu($usua,$pass) {
+            parent::conectar();
+            $usuario = parent::filtra($usua);
+            $password = parent::filtra($pass);
+            $consulta1 = 'SELECT usuario,password FROM login WHERE usuario = "'.$usuario.'"';
+            $consulta2 = 'INSERT INTO login(usuario,password) VALUES("'.$usuario.'","'.$password.'")';
+            $verificar = parent::verificarRegistros($consulta1);
+            if($verificar > 0){
+                parent::cerrar();
+                return 'error';
+            } else {
+                parent::query($consulta2);
+                parent::cerrar();
+                return 'Se guardo el usuario';
+            }
+        }
+        
         public function Actualizar($id,$nombre,$apellido,$fecha_nacimiento,$correo,$telefono,$genero) {
             parent::conectar();
             $usuario = parent::filtra($id);
