@@ -49,7 +49,7 @@
     
             if($MEE && $MER){
                 echo json_encode(array('resultado'=>'El mensaje fue enviado existosamente'));
-                $mensaje->EnviarNotificacion($mensaje1, $hora_del_mensaje, $token,$emisor);
+                $mensaje->EnviarNotificacion($mensaje1, $hora_del_mensaje, $token,$emisor,$receptor);
             }
         }else echo json_encode(array('resultado'=>'El usuario receptor no existe'));
     }else echo json_encode(array('resultado'=>'El usuario receptor no existe'));

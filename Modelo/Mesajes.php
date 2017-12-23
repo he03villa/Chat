@@ -29,14 +29,14 @@
             return parent::query($consultar);
         }
         
-        public function EnviarNotificacion($mensaje,$hora,$token,$emisor_mensaje) {
+        public function EnviarNotificacion($mensaje,$hora,$token,$emisor_mensaje,$receptor_mensaje) {
             ignore_user_abort();
             ob_start();
 
             $url = 'https://fcm.googleapis.com/fcm/send';
 
             $fields = array('to' => $token ,
-                      'data' => array('mensaje' => $mensaje,'hora' => $hora,'cabezera' => $emisor_mensaje.' te envio un nuevo mensaje','cuerpo' => $mensaje));
+                      'data' => array('mensaje' => $mensaje,'hora' => $hora,'cabezera' => $emisor_mensaje.' te envio un nuevo mensaje','cuerpo' => $mensaje, 'receptor' => $receptor_mensaje, 'emisor' => $emisor_mensaje));
 
             define('GOOGLE_API_KEY', 'AIzaSyAy5a-RyooO1LIx8TTyPpMGb9yqdCI8tvg');
 
