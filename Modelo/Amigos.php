@@ -9,5 +9,13 @@
             parent::cerrar();
             return $lista;
         }
+        
+        public function ListaToken(){
+            parent::conectar();
+            $consulta = 'SELECT id FROM token';
+            $lista = parent::consultaTodo($consulta);
+            parent::cerrar();
+            return $lista;
+        }
     }
 ?>
