@@ -31,5 +31,11 @@
                 return 'error';   
             }
         }
+        
+        public function Eliminar($NameTable,$id) {
+            parent::conectar();
+            $consultar1 = 'DELETE FROM '.$NameTable.' WHERE id="'.$id.'"';
+            return parent::query($consultar1);
+        }
     }
 ?>

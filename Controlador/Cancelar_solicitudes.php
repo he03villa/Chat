@@ -12,20 +12,19 @@
     $NameTableEmisor = "Amigos_".$emisor;
     $NameTableReceptor = "Amigos_".$receptor;
     
-    $hora_de_acetar_amistad = strftime("%H:%M ,%A, %d de %B de %Y ");
-    
     $existeTablaEmisor = true;
     $existeTablaReceptor = true;
     
     $solicitudes = new Solicitudes();
     
-    $resSolicitudEmisor = $solicitudes->Actualizar($NameTableEmisor, $receptor, 4, $hora_de_acetar_amistad,3);//insertar una solicitud en la tabla del emisor
-    $resSolicitudReceptor = $solicitudes->Actualizar($NameTableReceptor, $emisor, 4, $hora_de_acetar_amistad,2);//insertar una solicitud en la tabla del receptor
+    $resSolicitudEmisor = $solicitudes->Eliminar($NameTableEmisor, $receptor);//insertar una solicitud en la tabla del emisor
+    $resSolicitudReceptor = $solicitudes->Eliminar($NameTableReceptor, $emisor);//insertar una solicitud en la tabla del receptor
     
-    if($resSolicitudEmisor){
+    if(!$resSolicitudEmisor){//si nuestra tabla del emisor no existe
+       echo json_encode(array('respuesta' => 'Error de la solicitud'));
+    }
+    if(!$resSolicitudReceptor){//si nuestra tabla del receptor no existe
         echo json_encode(array('respuesta' => 'Error de la solicitud'));
     }
-    if($resSolicitudReceptor){
-        echo json_encode(array('respuesta' => 'Error de la solicitud'));
-    }
+    if($resSolicitudEmisor && $resSolicitudReceptor) echo json_encode(array('respuesta' => 'Se cancelo la solicitud correctamente'));
 ?>
