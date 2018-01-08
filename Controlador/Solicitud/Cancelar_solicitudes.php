@@ -1,5 +1,5 @@
 <?php
-    include '../Modelo/Solicitudes.php';
+    include '../../Modelo/Solicitudes.php';
     
     setlocale(LC_TIME, 'es_CO.UTF-8');
     date_default_timezone_set('America/Bogota');
