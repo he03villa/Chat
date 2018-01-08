@@ -12,20 +12,29 @@
     $NameTableEmisor = "Amigos_".$emisor;
     $NameTableReceptor = "Amigos_".$receptor;
     
-    $existeTablaEmisor = true;
-    $existeTablaReceptor = true;
-    
     $solicitudes = new Solicitudes();
     
-    $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
-    $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
+    $token_tabla = $solicitudes->getToken($receptor);
     
-    if(!$resSolicitudEmisor){//si nuestra tabla del emisor no existe
-       $solicitudes->CreateTable($NameTableEmisor);
-       $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
+    if($token_tabla){
+        
+        $token = $token_tabla['tokens'];
+        
+        $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
+        $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
+    
+        if(!$resSolicitudEmisor){//si nuestra tabla del emisor no existe
+            $solicitudes->CreateTable($NameTableEmisor);
+            $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
+        }
+        if(!$resSolicitudReceptor){//si nuestra tabla del receptor no existe
+            $solicitudes->CreateTable($NameTableReceptor);
+            $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
+        }
+        
+        if($resSolicitudEmisor && $resSolicitudReceptor){
+            $solicitudes->EnviarNotificacion($token, $emisor,$emisor.' te envio una solicitud de amistad');
+        }
     }
-    if(!$resSolicitudReceptor){//si nuestra tabla del receptor no existe
-        $solicitudes->CreateTable($NameTableReceptor);
-        $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
-    }
+    
 ?>

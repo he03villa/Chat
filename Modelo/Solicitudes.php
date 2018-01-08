@@ -37,5 +37,46 @@
             $consultar1 = 'DELETE FROM '.$NameTable.' WHERE id="'.$id.'"';
             return parent::query($consultar1);
         }
+        
+        public function getToken($id) {
+            parent::conectar();
+            $user1 = parent::filtra($id);
+            $consulta = 'SELECT id,tokens FROM token WHERE id="'.$user1.'"';
+            $user = parent::consultarArreglo($consulta);
+            $lista = array();
+            $lista['id']=$user['id'];
+            $lista['tokens']=$user['tokens'];
+            return $lista;
+        }
+        
+        public function EnviarNotificacion($token,$usuario_envio,$cuerpo) {
+            ignore_user_abort();
+            ob_start();
+
+            $url = 'https://fcm.googleapis.com/fcm/send';
+
+            $fields = array('to' => $token ,
+                      'data' => array('type'=>'solicitud','user_envio' => $usuario_envio,'cabezera' => 'Solicitud de amistad','cuerpo' => $cuerpo));
+
+            define('GOOGLE_API_KEY', 'AIzaSyAy5a-RyooO1LIx8TTyPpMGb9yqdCI8tvg');
+
+            $headers = array(
+                       'Authorization:key='.GOOGLE_API_KEY,
+                       'Content-Type: application/json'
+            );      
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+
+            $result = curl_exec($ch);
+            if($result === false)
+                die('Curl failed ' . curl_error());
+            curl_close($ch);
+            return $result;
+        }
     }
 ?>
