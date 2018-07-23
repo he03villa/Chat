@@ -54,5 +54,13 @@
                 return 'error';   
             }
         }
+        
+        public function ListaUsuario() {
+            parent::conectar();
+            $consulta = 'SELECT id,nombre FROM datospersonales WHERE id IN (SELECT id FROM token)';
+            $lista = parent::consultaTodo($consulta);
+            parent::cerrar();
+            return $lista;
+        }
     }
 ?>
