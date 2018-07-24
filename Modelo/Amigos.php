@@ -4,7 +4,7 @@
     class Amigos extends Conexion{
         public function Lista($nameTable){
             parent::conectar();
-            $consulta = 'SELECT usuario,password FROM '.$nameTable;
+            $consulta = 'SELECT id,estado,fecha_amogos FROM '.$nameTable;
             $lista = parent::consultaTodo($consulta);
             parent::cerrar();
             return $lista;
