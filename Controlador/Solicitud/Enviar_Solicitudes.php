@@ -20,16 +20,18 @@
         
         $token = $token_tabla['tokens'];
         
-        $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
-        $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
+        $hora_del_solicitud = strftime("%H:%M ,%A, %d de %B de %Y ");
+        
+        $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, $hora_del_solicitud);//insertar una solicitud en la tabla del emisor
+        $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, $hora_del_solicitud);//insertar una solicitud en la tabla del receptor
     
         if(!$resSolicitudEmisor){//si nuestra tabla del emisor no existe
             $solicitudes->CreateTable($NameTableEmisor);
-            $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, "por definir");//insertar una solicitud en la tabla del emisor
+            $resSolicitudEmisor = $solicitudes->EnviarSolicitud($NameTableEmisor, $receptor, 2, $hora_del_solicitud);//insertar una solicitud en la tabla del emisor
         }
         if(!$resSolicitudReceptor){//si nuestra tabla del receptor no existe
             $solicitudes->CreateTable($NameTableReceptor);
-            $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, "por definir");//insertar una solicitud en la tabla del receptor
+            $resSolicitudReceptor = $solicitudes->EnviarSolicitud($NameTableReceptor, $emisor, 3, $hora_del_solicitud);//insertar una solicitud en la tabla del receptor
         }
         
         if($resSolicitudEmisor && $resSolicitudReceptor){
