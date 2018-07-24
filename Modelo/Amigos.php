@@ -1,7 +1,7 @@
 <?php
     require 'conexion.php';
     
-    class Amigos extends Conexiono{
+    class Amigos extends Conexion{
         public function Lista($nameTable){
             parent::conectar();
             $consulta = 'SELECT usuario,password FROM '.$nameTable;
