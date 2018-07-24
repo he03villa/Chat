@@ -5,7 +5,7 @@
         $user = $_GET['user'];
         $amigo = new Amigos();
         $res = $amigo->Lista("Amigos_".$user);
-        echo json_encode($res);
+        echo json_encode(array('resultado' => $res));
     } catch (Exception $ex) {
         echo json_encode(array('resultado' => 'Ocurrio un error intentelo mas tarde'));
     }
