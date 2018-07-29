@@ -39,11 +39,11 @@
             $MEE = false;
             $MER = false;
     
-            $resMensajeEmisor = $mensaje->EnviarMensage($NameTableEmisor, $id_user_emisor, $mensaje1, 1, $hora_del_mensaje);
+            $resMensajeEmisor = $mensaje->EnviarMensage($NameTableEmisor, $receptor, $id_user_receptor, $mensaje1, 1, $hora_del_mensaje);
             if($resMensajeEmisor) $MEE = true;
             else echo 'No se puede enviar el mensaje';
     
-            $resMensajeReceptor = $mensaje->EnviarMensage($NameTableReceptor, $id_user_receptor.'1', $mensaje1, 2, $hora_del_mensaje);
+            $resMensajeReceptor = $mensaje->EnviarMensage($NameTableReceptor, $emisor, $id_user_emisor, $mensaje1, 2, $hora_del_mensaje);
             if($resMensajeReceptor)$MER = true;
             else echo 'No se puede enviar el mensaje';
     

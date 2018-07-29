@@ -5,7 +5,9 @@
         public function CreateTable($NameTable) {
             parent::conectar();
             $consulta = 'CREATE TABLE '.$NameTable.'('
-                        . 'id VARCHAR(50) PRIMARY KEY, '
+                        . 'id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,'
+                        . 'user VARCHAR(50) NOT  NULL'
+                        . 'code_mensaje VARCHAR(80)'
                         . 'mensaje VARCHAR(500) NOT NULL,'
                         . 'tipo_mensaje VARCHAR(10) NOT NULL,'
                         . 'hora_del_mensage VARCHAR(50) NOT NULL)';
@@ -23,9 +25,9 @@
             return $lista;
         }
         
-        public function EnviarMensage($NameTable,$id,$mensaje,$tipo_mensaje,$hora_del_mensaje) {
+        public function EnviarMensage($NameTable,$user,$code_mensaje,$mensaje,$tipo_mensaje,$hora_del_mensaje) {
             parent::conectar();
-            $consultar = 'INSERT INTO '.$NameTable.'(id,mensaje,tipo_mensaje,hora_del_mensage) VALUES("'.$id.'","'.$mensaje.'","'.$tipo_mensaje.'","'.$hora_del_mensaje.'")';
+            $consultar = 'INSERT INTO '.$NameTable.'(user,code_mensaje,mensaje,tipo_mensaje,hora_del_mensage) VALUES("'.$user.'",'.$code_mensaje.'",'.$mensaje.'","'.$tipo_mensaje.'","'.$hora_del_mensaje.'")';
             return parent::query($consultar);
         }
         
